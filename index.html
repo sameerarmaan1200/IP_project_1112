@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Smart Waste Segregation Hub</title>
+
+    <style>
+        /* 🌿 Basic Page Styling */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0077b6, #90e0ef);
+            overflow: hidden;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        /* ✨ Entry Container */
+        .entry-container {
+            text-align: center;
+            background: #fff;
+            padding: 60px 70px;
+            border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+            animation: popUp 1s ease-out;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        /* 🌟 Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes popUp {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* 🧭 Text */
+        h1 {
+            color: #023e8a;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        /* 🚀 Button */
+        button {
+            background: #0077b6;
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            font-size: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.4s ease;
+            box-shadow: 0 0 20px rgba(0, 119, 182, 0.6);
+        }
+
+        button:hover {
+            background: #00b4d8;
+            box-shadow: 0 0 30px rgba(0, 180, 216, 0.9);
+            transform: scale(1.1);
+        }
+
+        /* 🌫 Fade-out Effect */
+        .fade-out {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="entry-container" id="entryBox">
+        <h1>♻ Welcome to Smart Waste Segregation Hub</h1>
+        <p>Join us in creating a cleaner, greener planet 🌍</p>
+        <button onclick="enterWebsite()">Welcome</button>
+    </div>
+
+    <script>
+        function enterWebsite() {
+            const entryBox = document.getElementById("entryBox");
+            // Add fade-out class
+            entryBox.classList.add("fade-out");
+
+            // Wait for animation to finish, then redirect
+            setTimeout(() => {
+                window.location.href = "main.html";
+            }, 800); // match the CSS transition time (0.8s)
+        }
+    </script>
+</body>
+
+</html>

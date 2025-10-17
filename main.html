@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Waste Segregation Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container header-container">
+            <h1>♻️ Smart Waste Segregation Hub</h1>
+            <div class="header-buttons">
+                <a href="/signup/index.html" class="signup-btn">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <div class="nav-buttons">
+                <a href="#" class="nav-btn active" onclick="showSection('home', event)">🏠 Home</a>
+                <a href="#" class="nav-btn" onclick="showSection('learn', event)">📚 Learn</a>
+                <a href="game/waste-segregation-game.html" class="nav-btn" onclick="showSection('game', event)">🎮 Play
+                    Game</a>
+                <a href="#" class="nav-btn" onclick="showSection('search', event)">🔍 Smart Search</a>
+                <a href="#" class="nav-btn" onclick="showSection('tips', event)">💡 Tips</a>
+                <a href="#" class="nav-btn" onclick="showSection('trash-to-cash', event)">💰 Trash to Cash</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <h2>Welcome to Waste Segregation Hub</h2>
+                <p>Learn about proper waste management, play interactive games, and discover which bin your waste
+                    belongs to. Together, we can make our planet cleaner and greener! 🌍</p>
+            </div>
+
+            <div class="waste-grid">
+                <div class="waste-card" style="border-top: 5px solid #2ecc71;">
+                    <div class="waste-card-icon">🥬</div>
+                    <h3>Biodegradable</h3>
+                    <p>Organic waste that naturally decomposes</p>
+                    <ul>
+                        <li>🌽 Food scraps</li>
+                        <li>🍂 Garden waste</li>
+                        <li>📄 Paper products</li>
+                        <li>🌾 Natural fibers</li>
+                    </ul>
+                </div>
+
+                <div class="waste-card" style="border-top: 5px solid #3498db;">
+                    <div class="waste-card-icon">♻️</div>
+                    <h3>Recyclable</h3>
+                    <p>Materials that can be reprocessed</p>
+                    <ul>
+                        <li>🥤 Plastic bottles</li>
+                        <li>📦 Cardboard boxes</li>
+                        <li>🥫 Metal cans</li>
+                        <li>🍾 Glass bottles</li>
+                    </ul>
+                </div>
+
+                <div class="waste-card" style="border-top: 5px solid #e74c3c;">
+                    <div class="waste-card-icon">☠️</div>
+                    <h3>Hazardous</h3>
+                    <p>Dangerous waste requiring special handling</p>
+                    <ul>
+                        <li>🔋 Batteries</li>
+                        <li>🎨 Paint & chemicals</li>
+                        <li>💊 Expired medicines</li>
+                        <li>🧴 Cleaning products</li>
+                    </ul>
+                </div>
+
+                <div class="waste-card" style="border-top: 5px solid #f39c12;">
+                    <div class="waste-card-icon">💻</div>
+                    <h3>E-Waste</h3>
+                    <p>Electronic devices and components</p>
+                    <ul>
+                        <li>📱 Old phones</li>
+                        <li>💻 Computers</li>
+                        <li>📺 TVs & monitors</li>
+                        <li>🎧 Accessories</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learn Section -->
+        <section id="learn" class="section">
+            <h2 style="margin-bottom: 2rem; font-size: 2rem;">Understanding Waste Types</h2>
+
+            <div class="waste-grid">
+                <div class="waste-card">
+                    <div class="waste-card-icon">🥬</div>
+                    <h3>Biodegradable Waste</h3>
+                    <p><strong>What is it?</strong> Organic materials that break down naturally through microbial
+                        action.</p>
+                    <p><strong>Examples:</strong> Food scraps, vegetable peels, fruit waste, leaves, grass clippings,
+                        paper towels, tea bags, coffee grounds.</p>
+                    <p><strong>Why segregate?</strong> Can be composted to create nutrient-rich soil for plants,
+                        reducing landfill waste by 30-40%.</p>
+                </div>
+
+                <div class="waste-card">
+                    <div class="waste-card-icon">♻️</div>
+                    <h3>Recyclable Waste</h3>
+                    <p><strong>What is it?</strong> Materials that can be processed and converted into new products.</p>
+                    <p><strong>Examples:</strong> Plastic bottles, glass jars, aluminum cans, cardboard, newspapers,
+                        magazines, metal items.</p>
+                    <p><strong>Why segregate?</strong> Saves energy, reduces pollution, conserves natural resources, and
+                        decreases greenhouse gas emissions.</p>
+                </div>
+
+                <div class="waste-card">
+                    <div class="waste-card-icon">☠️</div>
+                    <h3>Hazardous Waste</h3>
+                    <p><strong>What is it?</strong> Toxic materials that can harm human health and the environment.</p>
+                    <p><strong>Examples:</strong> Batteries, paint, pesticides, cleaning chemicals, expired medications,
+                        fluorescent bulbs.</p>
+                    <p><strong>Why segregate?</strong> Prevents soil and water contamination, protects wildlife, and
+                        ensures safe disposal through specialized facilities.</p>
+                </div>
+
+                <div class="waste-card">
+                    <div class="waste-card-icon">💻</div>
+                    <h3>Electronic Waste</h3>
+                    <p><strong>What is it?</strong> Discarded electronic devices and appliances.</p>
+                    <p><strong>Examples:</strong> Smartphones, laptops, tablets, TVs, refrigerators, washing machines,
+                        printers, cables.</p>
+                    <p><strong>Why segregate?</strong> Contains valuable materials (gold, silver) and toxic substances
+                        (lead, mercury) that require specialized recycling.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Section -->
+        <section id="game" class="section">
+            <div class="game-container">
+                <div class="game-header">
+                    <h2>🎮 Waste Segregation Game</h2>
+                    <div class="score-board">
+                        <div class="score">✅ Score: <span id="score">0</span></div>
+                        <div class="mistakes">❌ Mistakes: <span id="mistakes">0</span></div>
+                    </div>
+                </div>
+
+                <p style="margin-bottom: 2rem;">Drag the items below into the correct bins!</p>
+
+                <div class="bins-container">
+                    <div class="bin" data-type="biodegradable">
+                        <div class="bin-icon">🥬</div>
+                        <h4>Biodegradable</h4>
+                        <small>Organic waste</small>
+                    </div>
+                    <div class="bin" data-type="recyclable">
+                        <div class="bin-icon">♻️</div>
+                        <h4>Recyclable</h4>
+                        <small>Reusable materials</small>
+                    </div>
+                    <div class="bin" data-type="hazardous">
+                        <div class="bin-icon">☠️</div>
+                        <h4>Hazardous</h4>
+                        <small>Dangerous waste</small>
+                    </div>
+                    <div class="bin" data-type="ewaste">
+                        <div class="bin-icon">💻</div>
+                        <h4>E-Waste</h4>
+                        <small>Electronics</small>
+                    </div>
+                </div>
+
+                <div class="items-container" id="itemsContainer"></div>
+
+                <div class="game-controls">
+                    <button class="btn" onclick="resetGame()">🔄 Reset Game</button>
+                    <button class="btn btn-secondary" onclick="newRound()">▶️ New Round</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section id="search" class="section">
+            <div class="search-container">
+                <h2 style="margin-bottom: 2rem;">🔍 Smart Bin Finder</h2>
+                <p style="margin-bottom: 2rem;">Not sure which bin? Search for any item and we'll
+                    tell you where it belongs!</p>
+
+                <div class="search-box">
+                    <input type="text" class="search-input" id="searchInput"
+                        placeholder="Type an item name (e.g., plastic bottle, banana peel)..."
+                        oninput="showSuggestions()" onkeypress="if(event.key==='Enter') searchItem()">
+                    <button class="btn" onclick="searchItem()">Search</button>
+                </div>
+
+                <div class="search-suggestions" id="suggestions" style="display: none;"></div>
+
+                <div class="search-result" id="searchResult">
+                    <div class="result-icon">🔍</div>
+                    <p style="color: #999;">Enter an item name to find its correct bin</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tips Section -->
+        <section id="tips" class="section">
+            <h2 style="margin-bottom: 2rem; font-size: 2rem;">💡 Waste Management Tips</h2>
+
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h3>🏠 At Home</h3>
+                    <p>Keep separate bins for different waste types. Rinse recyclables before disposing. Compost kitchen
+                        waste in your backyard or use community composting facilities.</p>
+                </div>
+
+                <div class="tip-card">
+                    <h3>🛒 While Shopping</h3>
+                    <p>Bring reusable bags and containers. Choose products with minimal packaging. Buy in bulk to reduce
+                        waste. Opt for recyclable or biodegradable packaging.</p>
+                </div>
+
+                <div class="tip-card">
+                    <h3>♻️ Reduce & Reuse</h3>
+                    <p>Repair items instead of replacing them. Donate or sell items you no longer need. Use reusable
+                        water bottles, coffee cups, and food containers.</p>
+                </div>
+
+                <div class="tip-card">
+                    <h3>🌱 Composting</h3>
+                    <p>Start a compost bin for food scraps and yard waste. Avoid composting meat, dairy, or oily foods.
+                        Turn compost regularly for faster decomposition.</p>
+                </div>
+
+                <div class="tip-card">
+                    <h3>📱 E-Waste Management</h3>
+                    <p>Take old electronics to certified e-waste recycling centers. Delete personal data before
+                        disposing devices. Consider donating working devices to charity.</p>
+                </div>
+
+                <div class="tip-card">
+                    <h3>☠️ Hazardous Waste</h3>
+                    <p>Never pour chemicals down drains. Store hazardous materials in original containers. Take to
+                        designated collection centers, not regular trash.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trash to Cash Section -->
+        <section id="trash-to-cash" class="section">
+            <h2 style="margin-bottom: 2rem; font-size: 2rem;">💰 Trash to Cash</h2>
+            <p style="margin-bottom: 2rem; font-size: 1.1rem;">Check your waste contribution and earn rewards!</p>
+
+            <div class="trash-cash-container">
+                <div class="input-card">
+                    <h3>🏢 Enter Your Details</h3>
+
+                    <div class="input-group">
+                        <label for="flatNo">Flat Number:</label>
+                        <input type="text" id="flatNo" class="cash-input" placeholder="e.g., 1A, 2B, 3C" maxlength="2">
+                        <small>Enter flat number (1-6) and letter (A-C)</small>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="pinNumber">PIN Number:</label>
+                        <input type="password" id="pinNumber" class="cash-input" placeholder="Enter your PIN"
+                            maxlength="4">
+                        <small>Enter your 4-digit PIN</small>
+                    </div>
+
+                    <button class="btn btn-cash" onclick="calculateReward()">💰 Check My Contribution</button>
+                </div>
+
+                <div class="result-card" id="cashResult" style="display: none;">
+                    <div class="result-icon">♻️</div>
+                    <h3>Your Contribution Summary</h3>
+
+                    <div class="contribution-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Flat Number:</div>
+                            <div class="detail-value" id="resultFlat">-</div>
+                        </div>
+
+                        <div class="detail-item highlight">
+                            <div class="detail-label">Total Waste Collected:</div>
+                            <div class="detail-value" id="resultQuantity">-</div>
+                        </div>
+
+                        <div class="detail-item highlight success">
+                            <div class="detail-label">Cash Earned:</div>
+                            <div class="detail-value" id="resultAmount">-</div>
+                        </div>
+                    </div>
+
+                    <p class="thank-you-msg">🌍 Thank you for contributing to a cleaner environment!</p>
+                    <button class="btn btn-secondary" onclick="resetCashForm()">Check Again</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="feedback" id="feedback">
+        <div class="feedback-icon" id="feedbackIcon"></div>
+        <h3 id="feedbackText"></h3>
+    </div>
+    <!-- Footer Section with Inline CSS -->
+    <footer
+        style="background-color: #d4f8d4; color: #2e7d32; text-align: center; padding: 20px 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; border-top: 2px solid #a5d6a7;">
+        <div>
+            <p style="margin: 5px 0;">&copy; 2025 Kazi Arman Samir</p>
+            <p style="margin: 5px 0;">
+                Contact:
+                <a href="mailto:sameerarmaan1200@gmail.com" style="color: #2e7d32; text-decoration: none; font-weight: bold;"
+                    onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
+                    sameerarmaan1200@gmail.com
+                </a>
+            </p>
+        </div>
+    </footer>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>

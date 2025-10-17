@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Segregation Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .game-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .score-board {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .score-item {
+            text-align: center;
+        }
+
+        .score-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .score-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .game-area {
+            margin-bottom: 30px;
+        }
+
+        .waste-items {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            min-height: 150px;
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 10px;
+            border: 3px dashed #ccc;
+        }
+
+        .waste-item {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: grab;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 2em;
+            border: 3px solid #ddd;
+        }
+
+        .waste-item:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .waste-item.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        .item-name {
+            font-size: 0.4em;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .bins {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .bin {
+            width: 150px;
+            height: 180px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .bin.drag-over {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .bin-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .bin-label {
+            font-weight: bold;
+            text-align: center;
+            color: white;
+            font-size: 1em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .bin-description {
+            font-size: 0.7em;
+            text-align: center;
+            color: white;
+            margin-top: 5px;
+        }
+
+        #blue-bin {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        #green-bin {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+
+        #red-bin {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .feedback {
+            text-align: center;
+            min-height: 60px;
+            margin: 20px 0;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            animation: bounce 0.5s;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            animation: shake 0.5s;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px);
+            }
+
+            75% {
+                transform: translateX(10px);
+            }
+        }
+
+        .controls {
+            text-align: center;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .game-over {
+            text-align: center;
+            padding: 20px;
+            background: #fff3cd;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .game-over h2 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .bin {
+                width: 120px;
+                height: 150px;
+            }
+
+            .waste-item {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="game-container">
+        <h1>♻️ Waste Segregation Game ♻️</h1>
+        <p class="subtitle">Drag and drop waste items into the correct bins!</p>
+
+        <div class="score-board">
+            <div class="score-item">
+                <div class="score-label">Score</div>
+                <div class="score-value" id="score">0</div>
+            </div>
+            <div class="score-item">
+                <div class="score-label">Level</div>
+                <div class="score-value" id="level">1</div>
+            </div>
+            <div class="score-item">
+                <div class="score-label">Items Left</div>
+                <div class="score-value" id="items-left">0</div>
+            </div>
+        </div>
+
+        <div class="game-area">
+            <div class="waste-items" id="waste-items"></div>
+
+            <div class="bins">
+                <div class="bin" id="blue-bin" data-type="recyclable">
+                    <div class="bin-icon">🗑️</div>
+                    <div class="bin-label">BLUE BIN</div>
+                    <div class="bin-description">Paper & Recyclables</div>
+                </div>
+
+                <div class="bin" id="green-bin" data-type="organic">
+                    <div class="bin-icon">🗑️</div>
+                    <div class="bin-label">GREEN BIN</div>
+                    <div class="bin-description">Organic Waste</div>
+                </div>
+
+                <div class="bin" id="red-bin" data-type="general">
+                    <div class="bin-icon">🗑️</div>
+                    <div class="bin-label">RED BIN</div>
+                    <div class="bin-description">General Waste</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <div class="controls">
+            <button id="start-btn" onclick="startGame()">Start Game</button>
+            <button id="next-btn" onclick="nextLevel()" style="display: none;">Next Level</button>
+        </div>
+    </div>
+
+    <script>
+        // Waste items database
+        const wasteDatabase = {
+            recyclable: [
+                { emoji: '📰', name: 'Newspaper' },
+                { emoji: '📄', name: 'Paper' },
+                { emoji: '📦', name: 'Cardboard' },
+                { emoji: '📚', name: 'Magazine' },
+                { emoji: '📋', name: 'Documents' },
+                { emoji: '🥤', name: 'Plastic Bottle' },
+                { emoji: '🥫', name: 'Aluminum Can' },
+                { emoji: '🍶', name: 'Glass Bottle' }
+            ],
+            organic: [
+                { emoji: '🍎', name: 'Apple Core' },
+                { emoji: '🍌', name: 'Banana Peel' },
+                { emoji: '🥕', name: 'Vegetables' },
+                { emoji: '🍞', name: 'Bread' },
+                { emoji: '🌿', name: 'Leaves' },
+                { emoji: '🥚', name: 'Eggshell' },
+                { emoji: '☕', name: 'Coffee Grounds' },
+                { emoji: '🌾', name: 'Garden Waste' }
+            ],
+            general: [
+                { emoji: '🔋', name: 'Battery' },
+                { emoji: '💄', name: 'Cosmetics' },
+                { emoji: '🧴', name: 'Plastic Wrap' },
+                { emoji: '💊', name: 'Medicine' },
+                { emoji: '🧷', name: 'Safety Pin' },
+                { emoji: '🔌', name: 'Electronics' },
+                { emoji: '🧹', name: 'Sweep Waste' },
+                { emoji: '👕', name: 'Old Clothes' }
+            ]
+        };
+
+        let score = 0;
+        let level = 1;
+        let currentItems = [];
+        let itemsLeft = 0;
+
+        function startGame() {
+            score = 0;
+            level = 1;
+            updateScore();
+            generateWasteItems();
+            document.getElementById('start-btn').style.display = 'none';
+            document.getElementById('feedback').textContent = '';
+        }
+
+        function generateWasteItems() {
+            const wasteItemsContainer = document.getElementById('waste-items');
+            wasteItemsContainer.innerHTML = '';
+            currentItems = [];
+
+            const itemsPerType = Math.min(2 + level, 4);
+            const types = ['recyclable', 'organic', 'general'];
+
+            types.forEach(type => {
+                const items = wasteDatabase[type];
+                const shuffled = items.sort(() => 0.5 - Math.random());
+                const selected = shuffled.slice(0, itemsPerType);
+
+                selected.forEach(item => {
+                    const wasteItem = createWasteItem(item.emoji, item.name, type);
+                    wasteItemsContainer.appendChild(wasteItem);
+                    currentItems.push({ element: wasteItem, type: type });
+                });
+            });
+
+            itemsLeft = currentItems.length;
+            updateScore();
+            shuffleChildren(wasteItemsContainer);
+        }
+
+        function createWasteItem(emoji, name, type) {
+            const div = document.createElement('div');
+            div.className = 'waste-item';
+            div.draggable = true;
+            div.dataset.type = type;
+            div.innerHTML = `
+                ${emoji}
+                <div class="item-name">${name}</div>
+            `;
+
+            div.addEventListener('dragstart', handleDragStart);
+            div.addEventListener('dragend', handleDragEnd);
+
+            return div;
+        }
+
+        function handleDragStart(e) {
+            e.target.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', e.target.innerHTML);
+            e.dataTransfer.setData('type', e.target.dataset.type);
+        }
+
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+        }
+
+        // Setup bins for drag and drop
+        document.querySelectorAll('.bin').forEach(bin => {
+            bin.addEventListener('dragover', handleDragOver);
+            bin.addEventListener('drop', handleDrop);
+            bin.addEventListener('dragleave', handleDragLeave);
+        });
+
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            e.dataTransfer.dropEffect = 'move';
+            e.currentTarget.classList.add('drag-over');
+            return false;
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+            e.preventDefault();
+
+            const bin = e.currentTarget;
+            bin.classList.remove('drag-over');
+
+            const itemType = e.dataTransfer.getData('type');
+            const binType = bin.dataset.type;
+
+            const draggedItem = document.querySelector('.dragging');
+
+            if (draggedItem) {
+                checkAnswer(itemType, binType, draggedItem);
+            }
+
+            return false;
+        }
+
+        function checkAnswer(itemType, binType, element) {
+            const feedback = document.getElementById('feedback');
+
+            if (itemType === binType) {
+                // Correct answer
+                score += 10 * level;
+                feedback.textContent = '🎉 Correct! Great job!';
+                feedback.className = 'feedback correct';
+                playSound('correct');
+                element.remove();
+                itemsLeft--;
+            } else {
+                // Wrong answer
+                score = Math.max(0, score - 5);
+                feedback.textContent = '❌ Oops! Try again!';
+                feedback.className = 'feedback incorrect';
+                playSound('wrong');
+            }
+
+            updateScore();
+
+            if (itemsLeft === 0) {
+                levelComplete();
+            }
+        }
+
+        function playSound(type) {
+            // Create audio feedback using Web Audio API
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            if (type === 'correct') {
+                oscillator.frequency.value = 800;
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.2);
+            } else {
+                oscillator.frequency.value = 200;
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            }
+        }
+
+        function levelComplete() {
+            const feedback = document.getElementById('feedback');
+            feedback.textContent = `🎊 Level ${level} Complete! You earned ${score} points!`;
+            feedback.className = 'feedback correct';
+            document.getElementById('next-btn').style.display = 'inline-block';
+        }
+
+        function nextLevel() {
+            level++;
+            const feedback = document.getElementById('feedback');
+            feedback.textContent = `Ready for Level ${level}?`;
+            feedback.className = 'feedback';
+            generateWasteItems();
+            document.getElementById('next-btn').style.display = 'none';
+        }
+
+        function updateScore() {
+            document.getElementById('score').textContent = score;
+            document.getElementById('level').textContent = level;
+            document.getElementById('items-left').textContent = itemsLeft;
+        }
+
+        function shuffleChildren(parent) {
+            const children = Array.from(parent.children);
+            children.sort(() => 0.5 - Math.random());
+            children.forEach(child => parent.appendChild(child));
+        }
+    </script>
+</body>
+
+</html>
